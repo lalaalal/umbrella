@@ -1,0 +1,8 @@
+/.ccls-cache/
+/CMakeFiles/
+/Debug/
+/Release/
+/cmake_install.cmake
+/CMakeCache.txt
+/Makefile
+/src/sql_usr_info.h
