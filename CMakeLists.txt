@@ -8,6 +8,8 @@ SET ( OUTPUT ${CMAKE_PROJECT_NAME} )
 SET ( SRC
     src/main.cpp
     src/mysql_handler.cpp
+    src/exceptions.cpp
+    src/sock_client.cpp
 )
 
 SET ( CMAKE_CXX_COMPILER g++)
