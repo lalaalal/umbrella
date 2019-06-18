@@ -1,15 +1,9 @@
 #include "sock_client.hpp"
 #include "exceptions.hpp"
 
-#include <cstdlib>
-#include <cstring>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-
 using namespace umbrella;
 
-Client::Client(const char * HOST_NAME, const int PORT_NUM) {
+Client::Client(const char * SQL_HOST_NAME, const int PORT_NUM) {
     servSock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (servSock == -1)
         throw SocketException(CREATE);
@@ -17,10 +11,14 @@ Client::Client(const char * HOST_NAME, const int PORT_NUM) {
     memset(&servAddr, 0, sizeof(servAddr));
     servAddr.sin_family      = AF_INET;
     servAddr.sin_port        = htons(PORT_NUM);
-    servAddr.sin_addr.s_addr = inet_addr(HOST_NAME);
+    servAddr.sin_addr.s_addr = inet_addr(SQL_HOST_NAME);
 
     if (connect(servSock, (sockaddr *) &servAddr, sizeof(servAddr)) == -1)
         throw SocketException(CONNECT);
+}
+
+Client::Client(const std::string SQL_HOST_NAME, const int PORT_NUM) {
+    Client(SQL_HOST_NAME.c_str(), PORT_NUM);
 }
 
 Client::~Client() {
