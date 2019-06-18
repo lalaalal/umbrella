@@ -5,4 +5,4 @@
 /cmake_install.cmake
 /CMakeCache.txt
 /Makefile
-/src/sql_usr_info.h
+/src/sql_info.h
