@@ -1,8 +1,5 @@
 #include "mysql_handler.hpp"
-#include "sql_usr_info.h"
-// MySQL user name, password
-
-#include <cppconn/resultset.h>
+#include "sql_info.h"
 
 #include <iostream>
 #include <string>

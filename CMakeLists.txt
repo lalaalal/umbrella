@@ -10,6 +10,7 @@ SET ( SRC
     src/mysql_handler.cpp
     src/exceptions.cpp
     src/sock_client.cpp
+    src/umbrella_handler.cpp
 )
 
 SET ( CMAKE_CXX_COMPILER g++)
