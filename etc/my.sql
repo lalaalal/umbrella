@@ -1,0 +1,17 @@
+CREATE DATABASE BOOK;
+
+USE BOOK;
+
+CREATE TABLE books (
+    `ID` INT NOT NULL AUTO_INCREMENT,
+    `title` TEXT NOT NULL,
+    `author` TEXT NOT NULL,
+    `arduino_id` INT NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE arduino (
+    `ID` INT NOT NULL AUTO_INCREMENT,
+    `ip` CHAR(16) NOT NULL,
+    PRIMARY KEY (ID)
+);
