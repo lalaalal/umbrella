@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED ( VERSION 3.13 )
 
 PROJECT ( umbrella )
 
-SET ( CMAKE_BUILD_TYPE Debug )
+SET ( CMAKE_BUILD_TYPE Release )
 SET ( OUTPUT ${CMAKE_PROJECT_NAME} )
 
 SET ( SRC
@@ -13,7 +13,7 @@ SET ( SRC
     src/umbrella_handler.cpp
 )
 
-SET ( CMAKE_CXX_COMPILER g++)
+SET ( CMAKE_CXX_COMPILER g++ )
 ADD_COMPILE_OPTIONS ( -g -Wall )
 
 # CMAKE_BUILD_TYPE == Debug

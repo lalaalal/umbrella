@@ -4,30 +4,28 @@
 #include "mysql_handler.hpp"
 #include "sock_client.hpp"
 
+#include "data_form.h"
+
 #include <string>
+
+#define MAJOR_VERSION 0
+#define MINOR_VERSION 1
 
 #define PORT_NUM 9814
 
-typedef char DataFrom;
-
-enum COMMAND_NUMBER {
-    REQUEST_LED   = 0x00,
-    REQUEST_EXIST = 0x01,
-    REQUEST_EXIT  = 0x0F,
-
-    RESPONSE_DONE = 0x10,
-};
-
 class UmbrellaHandler {
 private:
-    MysqlHandler mysql ;
-    Client     * client;
+    MysqlHandler     mysql ;
+    sql::ResultSet * result;
+
+    Client * client;
 public:
     UmbrellaHandler();
     ~UmbrellaHandler();
+    void searchBook();
     void findBook(int bookNum);
-    std::string getServerHost(int bookNum);
-    DataFrom command(DataFrom COMMAND);
+    std::string getArduinoIP(int bookNum);
+    ResponseData command(RequestData & requestData);
 };
 
 #endif

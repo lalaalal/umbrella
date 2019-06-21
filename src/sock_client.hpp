@@ -15,7 +15,6 @@ private:
     sockaddr_in servAddr;
 public:
     Client(const char * SQL_HOST_NAME, const int PORT_NUM);
-    Client(const std::string SQL_HOST_NAME, const int PORT_NUM);
     ~Client();
     void send(void * buf, size_t size);
     void receive(void * buf, size_t size);

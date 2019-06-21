@@ -7,32 +7,49 @@
 
 using namespace umbrella;
 
-UmbrellaHandler::UmbrellaHandler() : mysql(SQL_HOST_NAME, DATABASE_NAME) { }
+UmbrellaHandler::UmbrellaHandler() : mysql(SQL_HOST_NAME, DATABASE_NAME) {
+    printf("UMBRELLA v%d.%d\n", MAJOR_VERSION, MINOR_VERSION);
+    printf("\n");
+}
 
 UmbrellaHandler::~UmbrellaHandler() { }
 
 void UmbrellaHandler::findBook(int bookNum) {
-    std::string arduinoIP = getServerHost(bookNum);
+    std::string arduinoIP = getArduinoIP(bookNum);
 
-    client = new Client(arduinoIP, PORT_NUM);
-    DataFrom response = command(REQUEST_EXIST);
+    client = new Client(arduinoIP.c_str(), PORT_NUM);
 
-    if (response % RESPONSE_DONE) {
+    RequestData  request ;
+    ResponseData response;
+
+    request.command = REQUEST_EXIST;
+    request.data    = bookNum      ;
+
+    response = command(request);
+
+    if (response.command == RESPONSE_EXIST) {
         // data : true
-        response = command(REQUEST_LED);
-        if (response % RESPONSE_DONE)
+        request.command = REQUEST_LED;
+        response = command(request);
+        std::cout << "BOOK EXISTS" << std::endl;
+        if (response.command == RESPONSE_DONE)
             std::cout << "LED ON" << std::endl;
     } else {
         // data : false
-        std::cout << "BOOK NOT EXIST" << std::endl;
+        std::cout << "BOOK DOESN'T EXIST" << std::endl;
     }
-    command(REQUEST_EXIT);
+    request.command = REQUEST_EXIT;
+    command(request);
 
     delete client;
     client = NULL;
 }
 
-std::string UmbrellaHandler::getServerHost(int bookNum) {
+void UmbrellaHandler::searchBook() {
+    
+}
+
+std::string UmbrellaHandler::getArduinoIP(int bookNum) {
     sql::ResultSet * resultset;
     resultset = mysql.query(QUERY_FIND_ARDUINO_IP);
     if (!resultset->next())
@@ -42,17 +59,18 @@ std::string UmbrellaHandler::getServerHost(int bookNum) {
     return resultset->getString(ARDUINO_IP_COL_NAME);
 }
 
-DataFrom UmbrellaHandler::command(DataFrom COMMAND) {
+ResponseData UmbrellaHandler::command(RequestData & request) {
     if (client == NULL)
         throw SocketException(NO_CONNECTION);
 
-    DataFrom buf = 0;
+    ResponseData response;
 
-    client->send(&COMMAND, sizeof(DataFrom));
-    client->receive(&buf, sizeof(DataFrom));
+    client->send(&request, sizeof(request));
+    client->receive(&response, sizeof(response));
 
-    if (buf ^ RESPONSE_DONE)
-        throw SocketException(WRONG_DATA);
+#ifdef DEBUG
+    printf("ResponseData.command : 0x%02X\n", response.command);
+#endif
 
-    return buf;
+    return response;
 }

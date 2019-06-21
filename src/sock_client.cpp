@@ -17,14 +17,11 @@ Client::Client(const char * SQL_HOST_NAME, const int PORT_NUM) {
         throw SocketException(CONNECT);
 }
 
-Client::Client(const std::string SQL_HOST_NAME, const int PORT_NUM) {
-    Client(SQL_HOST_NAME.c_str(), PORT_NUM);
-}
-
 Client::~Client() {
     close(servSock);
 }
 
+// TODO : 
 void Client::send(void * buf, size_t size) {
     write(servSock, buf, size);
 }
