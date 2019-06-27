@@ -22,6 +22,7 @@ namespace umbrella {
 
         WRONG_DATA    = 0x05,
         NO_CONNECTION = 0x06,
+        EXIT_FAILED    = 0x07,
     };
 
     class Exception {
