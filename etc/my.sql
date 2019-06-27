@@ -2,7 +2,7 @@ CREATE DATABASE BOOK;
 
 USE BOOK;
 
-CREATE TABLE books (
+CREATE TABLE book (
     `ID` INT NOT NULL AUTO_INCREMENT,
     `title` TEXT NOT NULL,
     `author` TEXT NOT NULL,
@@ -13,5 +13,8 @@ CREATE TABLE books (
 CREATE TABLE arduino (
     `ID` INT NOT NULL AUTO_INCREMENT,
     `ip` CHAR(16) NOT NULL,
+    `x` INT NOT NULL,
+    `y` INT NOT NULL,
+    `z` INT NOT NULL,
     PRIMARY KEY (ID)
 );
