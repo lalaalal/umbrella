@@ -9,6 +9,8 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
+#include "data_form.h"
+
 class Client {
 private:
     int         servSock;
@@ -16,8 +18,8 @@ private:
 public:
     Client(const char * SQL_HOST_NAME, const int PORT_NUM);
     ~Client();
-    void send(void * buf, size_t size);
-    void receive(void * buf, size_t size);
+    void send(void * buf, size_t size) const;
+    void receive(void * buf, size_t size) const;
 };
 
 #endif
