@@ -22,6 +22,8 @@ private:
 public:
     UmbrellaHandler();
     ~UmbrellaHandler();
+    void addBook(std::string title, std::string author, int arduinoID);
+    void addArduino(std::string ip, int x, int y, int z);
     void searchBook();
     void findBook(int bookNum);
     std::string getArduinoIP(int bookNum);
