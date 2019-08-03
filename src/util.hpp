@@ -4,7 +4,7 @@
 #include <string>
 
 namespace umbrella {
-    // Replace
+    // Replace 
     void replacePattern(std::string & str, std::string from , std::string to) {
         for (size_t i = 0; i < str.length() - from.length() + 1; i++) {
             if (str.compare(i, from.length(), from) == 0) {

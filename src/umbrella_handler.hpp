@@ -15,10 +15,8 @@
 
 class UmbrellaHandler {
 private:
-    MysqlHandler     mysql ;
-    sql::ResultSet * result;
-
-    Client * client;
+    MysqlHandler mysql ;
+    Client     * client;
 public:
     UmbrellaHandler();
     ~UmbrellaHandler();

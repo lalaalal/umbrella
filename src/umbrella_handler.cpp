@@ -21,10 +21,11 @@ void UmbrellaHandler::addBook(std::string title, std::string author, int arduino
     replacePattern(query, "[TITLE]", title);
     replacePattern(query, "[AUTHOR]", author);
     replacePattern(query, "[ARDUINO_ID]", std::to_string(arduinoID));
-    // mysql.query(query);
+    //TODO : exception
 #ifdef DEBUG
     std::cout << query << std::endl;
 #endif
+    mysql.query(query);
 }
 
 void UmbrellaHandler::addArduino(std::string ip, int x, int y, int z) {
@@ -33,10 +34,10 @@ void UmbrellaHandler::addArduino(std::string ip, int x, int y, int z) {
     replacePattern(query, "[X]", std::to_string(x));
     replacePattern(query, "[Y]", std::to_string(y));
     replacePattern(query, "[Z]", std::to_string(z));
-    // mysql.query(query);
 #ifdef DEBUG
     std::cout << query << std::endl;
 #endif
+    mysql.query(query);
 }
 
 void UmbrellaHandler::searchBook() {
@@ -66,13 +67,16 @@ void UmbrellaHandler::findBook(int bookNum) {
         std::cout << "BOOK DOESN'T EXIST" << std::endl;
     }
 
+    client->exit();
     delete client;
     client = NULL;
 }
 
 std::string UmbrellaHandler::getArduinoIP(int bookNum) {
     sql::ResultSet * resultset;
-    resultset = mysql.query(QUERY_FIND_ARDUINO_IP);
+    std::string query = QUERY_FIND_ARDUINO_IP;
+    replacePattern(query, "[BOOK_ID]", std::to_string(bookNum));
+    resultset = mysql.query(query);
     if (!resultset->next())
         throw Exception(WRONG_RESULT);
 

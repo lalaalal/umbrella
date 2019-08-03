@@ -1,6 +1,8 @@
 #ifndef __EXCEPTIONS__
 #define __EXCEPTIONS__
 
+#include "sock_client.hpp"
+
 #include <string>
 
 namespace umbrella {

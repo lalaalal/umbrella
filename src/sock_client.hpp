@@ -16,10 +16,11 @@ private:
     int         servSock;
     sockaddr_in servAddr;
 public:
-    Client(const char * SQL_HOST_NAME, const int PORT_NUM);
+    Client(const char * HOST_NAME, const int PORT_NUM);
     ~Client();
     void send(void * buf, size_t size) const;
     void receive(void * buf, size_t size) const;
+    void exit() const;
 };
 
 #endif
